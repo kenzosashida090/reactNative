@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   interface typesState {
@@ -9,11 +9,11 @@ export default function App() {
   const [text, setText] = useState<string>("")
   const [goals, setGoals] = useState<string[]>()
   function goalInputHandler (e : string){
-    if(e){
+   
       
       setText(e)
       
-    }
+    
 
   }
   function addGoalHandler () {
@@ -31,13 +31,17 @@ export default function App() {
           <TextInput value={text} onChangeText={goalInputHandler} style={styles.textInput}  placeholder='Your course goals'/>
           <Button onPress={addGoalHandler} color={"pink"}  title='Add goal'/>
         </View>
-      <View style={styles.gaolsContainer}>
+        <View style={styles.gaolsContainer}>
+
+      <ScrollView alwaysBounceVertical={true} >
         {goals && goals.map((goal, index) => (
-        <Text key={index}>{goal}</Text>
-       
+          <View key={index} style={styles.goalItem}> 
+        <Text style={styles.goalText}>{goal}</Text>
+          </View>
         )
         )}
-      </View>
+      </ScrollView>
+        </View>
 
       <View>
         <Text>Clear</Text>
@@ -78,5 +82,16 @@ const styles = StyleSheet.create({
   button:{
     flex:1,
     borderRadius: 2
+  },
+  goalItem:{
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: "#5e0acc",
+  },
+  goalText:{
+    color:"white"
+
   }
+
 });
